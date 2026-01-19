@@ -1,51 +1,60 @@
-//export function LoginView() {
-//
-//}
+import {ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {styles} from "./LoginStyle";
+import viewModel from "./LoginViewModel"
+import { useNavigation } from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParanList} from "../../../navigation/RootNavigator";
 
-import {Text, TextInput, View, TouchableOpacity} from 'react-native';
-import {styles} from './LoginStyle'
-import viewModel from './LoginViewModel';
+const LoginView = () => {
 
-
-const LoginView = (() => {
-
-    const {email, password, setEmail, iniciarSesion, setPassword} = viewModel();
+    const {email, password, iniciarSesion, setEmail, setPassword} = viewModel();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParanList>>();
 
     return (
-        <View>
-            <Text style={styles.titulo}>
-                Iniciar Sesión
-            </Text>
+        <ScrollView style={{flex: 1}}>
+            <View>
+                <Text style={styles.titulo}>Iniciar sesión</Text>
 
-            <Text style={styles.label}>
-                Correo Electrónico
-            </Text>
-            <TextInput style={styles.textInput}
-                       autoComplete={"email"}
-                       autoFocus={true}
-                       placeholder={"...@example.com"}
-                       onChangeText={(text: string) => setEmail(text)}>
-            </TextInput>
-            <Text style={styles.label}>
-                Contraseña
-            </Text>
-            <TextInput style={styles.textInput}
-                       autoComplete={"password"}
-                       placeholder={"*****"}
-                       keyboardType={"default"}
-                       secureTextEntry={true}
-                       onChangeText={(text: string) => setPassword(text)}
-            >
+                <Text style={styles.label}>
+                    Correo electrónico:
+                </Text>
+                <TextInput
+                    style={styles.textInput}
+                    autoComplete={"email"}
+                    placeholder={"...@example.com"}
+                    keyboardType={"email-address"}
+                    onChangeText={text => setEmail(text)}
+                ></TextInput>
 
-            </TextInput>
 
-            <TouchableOpacity style={styles.buttonSubmit} onPress={() => {(iniciarSesion())
-            }}>
-                <Text style={{textAlign: "center"}}>Entrar</Text>
-            </TouchableOpacity>
-        </View>
-    );
-})
+                <Text style={styles.label}>
+                    Contraseña:
+                </Text>
+                <TextInput
+                    style={styles.textInput}
+                    autoComplete={"password"}
+                    placeholder={"******"}
+                    keyboardType={"default"}
+                    secureTextEntry={true}
+                    onChangeText={text => setPassword(text)}
+                ></TextInput>
+
+                <TouchableOpacity
+                    style={styles.buttonSubmit}
+                    onPress={() => {iniciarSesion()}}
+                >
+                    <Text style={{textAlign: "center", color: "#FFF"}}>Entrar</Text>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity style={{marginTop: 20}} onPress={() => {
+                    navigation.navigate("Registro")
+                }}>
+                    <Text style={{textAlign: "center"}}>Registrarme</Text>
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
+    )
+}
 
 export default LoginView;
-
