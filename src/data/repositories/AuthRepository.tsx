@@ -1,8 +1,9 @@
 import {AuthRepository} from "../../domain/repositories/AuthRepository";
 import {LoginData, UserInterface} from "../../domain/entities/login-interface";
 
-class AuthRepositoryImpl implements AuthRepository {
-    login(data: LoginData): Promise<UserInterface>{
-
+export class AuthRepositoryImpl implements AuthRepository {
+    // @ts-ignore
+    login(data: LoginData): Promise<UserInterface | void>{
+        console.log("Hola mundo");
     }
 }

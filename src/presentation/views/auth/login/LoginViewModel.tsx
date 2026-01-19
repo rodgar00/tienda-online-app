@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {LoginData} from "../../../../domain/entities/login-interface";
-
+import {loginUseCase} from "../../../../domain/useCases/loginUseCase";
 
 const LoginViewModel = () => {
 
@@ -8,14 +8,16 @@ const LoginViewModel = () => {
     const [password, setPassword] = useState<string>("");
 
 
-    const iniciarSesion = ()=> {
+    const iniciarSesion = async ()=> {
         const  data: LoginData = {
             email:email,
             password: password
         }
 
         if (validate()){
+            const response = await loginUseCase(data)
             alert(`Email: ${email}, Contraseña: ${password}`)
+            console.log(data)
         }
     }
 
